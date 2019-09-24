@@ -1,7 +1,7 @@
 package com.msf.gateway;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 /**
  * @Description
@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 
  */
 //@EnableDubbo(multipleConfig = true) //多注册中心集群，低版本使用
-@SpringBootApplication
+@EnableAutoConfiguration
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
