@@ -1,5 +1,6 @@
 package com.msf.gateway;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -10,7 +11,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
  * @time 2019年3月4日
  * 
  */
-//@EnableDubbo(multipleConfig = true) //多注册中心集群，低版本使用
+@EnableDubbo(multipleConfig = true) //多注册中心集群，低版本使用
 @EnableAutoConfiguration
 public class Application {
 	public static void main(String[] args) {
