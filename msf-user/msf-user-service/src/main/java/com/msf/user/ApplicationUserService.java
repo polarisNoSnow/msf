@@ -1,4 +1,4 @@
-package com.msf.gateway;
+package com.msf.user;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @time 2019年3月4日
  * 
  */
-@EnableDubbo(multipleConfig = true) //多注册中心集群，低版本使用
 @SpringBootApplication
-public class Application {
+@EnableDubbo(multipleConfig = true)
+public class ApplicationUserService {
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(ApplicationUserService.class, args);
 	}
 }
