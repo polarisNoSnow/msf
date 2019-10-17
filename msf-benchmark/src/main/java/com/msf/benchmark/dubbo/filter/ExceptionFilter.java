@@ -30,6 +30,8 @@ import org.apache.dubbo.rpc.RpcContext;
 import org.apache.dubbo.rpc.RpcException;
 import org.apache.dubbo.rpc.service.GenericService;
 
+import com.msf.benchmark.exception.ServiceException;
+
 import java.lang.reflect.Method;
 
 /**
@@ -45,7 +47,7 @@ public class ExceptionFilter extends ListenableFilter {
     public ExceptionFilter() {
         super.listener = new ExceptionListener();
     }
-    
+    @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         return invoker.invoke(invocation);
     }
@@ -53,7 +55,7 @@ public class ExceptionFilter extends ListenableFilter {
     static class ExceptionListener implements Listener {
 
         private Logger logger = LoggerFactory.getLogger(ExceptionListener.class);
-
+        @Override
         public void onResponse(Result appResponse, Invoker<?> invoker, Invocation invocation) {
             if (appResponse.hasException() && GenericService.class != invoker.getInterface()) {
                 try {
@@ -95,7 +97,7 @@ public class ExceptionFilter extends ListenableFilter {
                         return;
                     }
                     // 自定义异常
-                    if (className.equals("com.user.benchmark.exception.ServiceException") ) {
+                    if (ServiceException.class.getName().equals(className) ) {
                         return;
                     }
                     // otherwise, wrap with RuntimeException and throw back to the client
@@ -107,7 +109,7 @@ public class ExceptionFilter extends ListenableFilter {
                 }
             }
         }
-
+        @Override
         public void onError(Throwable e, Invoker<?> invoker, Invocation invocation) {
             logger.error("Got unchecked and undeclared exception which called by " + RpcContext.getContext().getRemoteHost() + ". service: " + invoker.getInterface().getName() + ", method: " + invocation.getMethodName() + ", exception: " + e.getClass().getName() + ": " + e.getMessage(), e);
         }

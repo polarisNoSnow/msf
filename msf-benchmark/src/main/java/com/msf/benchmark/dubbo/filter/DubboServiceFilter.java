@@ -35,9 +35,10 @@ public class DubboServiceFilter implements Filter
 		filterMethod.add("updateLoginPassword");
 	}
  
-    protected String LOG_IN = "请求入参";
-    protected String LOG_OUT = "请求应答";
+    protected String logIn = "请求入参";
+    protected String logOut = "请求应答";
     
+    @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation)throws RpcException {
     	//因为脱敏日志处理不支持非对象参数的脱敏处理，所以对包含有string类型的不过滤,也就是不打印日志
     	boolean isLog=true;
@@ -60,7 +61,7 @@ public class DubboServiceFilter implements Filter
 		Object[] reqParam = null;
     	if(isLog) {
     		reqParam = invocation.getArguments();
-    		log.info(LOG_IN+"method:[{}],request:{}",invocation.getMethodName(), JSON.toJSON(reqParam));
+    		log.info(logIn+"method:[{}],request:{}",invocation.getMethodName(), JSON.toJSON(reqParam));
     	}
     	
         Result result = null;
@@ -87,12 +88,12 @@ public class DubboServiceFilter implements Filter
         {	/*异常无需打印json*/
         	if(errFlag){
         		if(isLog) {
-        			log.info(LOG_OUT+"method:[{}],takeTime:{} ms,request:{},response:{}",
+        			log.info(logOut+"method:[{}],takeTime:{} ms,request:{},response:{}",
 	        				invocation.getMethodName(), takeTime,JSON.toJSON(invocation.getArguments()), result);
         		}
         	}else{
         		if(isLog) {
-        			log.info(LOG_OUT+"method:[{}],request:{},response:{},takeTime:{} ms",
+        			log.info(logOut+"method:[{}],request:{},response:{},takeTime:{} ms",
 	                        invocation.getMethodName(),JSON.toJSON(reqParam), JSON.toJSON(result.getValue()),takeTime);
         		}
         	}
