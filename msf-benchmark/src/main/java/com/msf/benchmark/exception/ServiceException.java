@@ -14,7 +14,7 @@ public class ServiceException extends RuntimeException{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String errorCode = "520";
-	private String errorMessage;
+	private String errorMessage = "程序异常";
 	
 	public ServiceException() {
 		super();

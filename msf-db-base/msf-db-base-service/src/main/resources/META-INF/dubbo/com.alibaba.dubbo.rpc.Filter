@@ -1,0 +1,3 @@
+extendServiceLogFilter=com.msf.benchmark.dubbo.filter.DubboServiceFilter
+extendConsumeLogFilter=com.msf.benchmark.dubbo.filter.DubboConsumeFilter
+extendExceptionFilter=com.msf.benchmark.dubbo.filter.ExceptionFilter
