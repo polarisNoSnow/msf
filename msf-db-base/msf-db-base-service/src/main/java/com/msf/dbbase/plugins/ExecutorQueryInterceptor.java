@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
@@ -19,6 +18,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.msf.benchmark.annotation.EncryptType;
@@ -34,7 +34,7 @@ public class ExecutorQueryInterceptor implements Interceptor {
 
 	private static final Logger log = LoggerFactory.getLogger(ExecutorQueryInterceptor.class);
 	
-	@Reference(interfaceClass=IEncryptDecryptServer.class,registry = "decrypt")
+	@Autowired
 	IEncryptDecryptServer encryptDecryptServer;
 
 	@Override

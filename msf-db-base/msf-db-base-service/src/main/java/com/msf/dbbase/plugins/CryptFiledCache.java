@@ -58,13 +58,12 @@ class CryptFiledCache {
 	 * @Description 
 	 *
 	 * @author 北辰不落雪
-	 * @date 2019年3月18日
+	 * @date 2019年10月18日
 	 */
 	static class CryptDescribe {
 		private Map<Field, String> cryptField = new HashMap<Field, String>();
 
 		private Map<String, String> crypyColumn = new HashMap<String, String>();
-
 
 		public boolean hasCryptFiled() {
 			return !cryptField.isEmpty();

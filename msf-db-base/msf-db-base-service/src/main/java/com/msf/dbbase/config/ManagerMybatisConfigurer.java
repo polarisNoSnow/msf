@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -29,7 +27,8 @@ import org.springframework.transaction.interceptor.TransactionAttribute;
 import org.springframework.transaction.interceptor.TransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
+import com.msf.dbbase.core.YsappMapper;
 import com.msf.dbbase.plugins.ExecutorQueryInterceptor;
 import com.msf.dbbase.plugins.ExecutorUpdateInterceptor;
 
@@ -41,20 +40,16 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 @Configuration
 public class ManagerMybatisConfigurer {
 	
-	@Value("${aop.pointcut.expression}")
-	private String aopPointcutExpression;
+	private String aopPointcutExpression = "execution (* com.msf.dbbase.service.impl.*.*(..))";
 	
-	@Value("${model.package}")
-	private String modelPackage;
+	private String modelPackage = "com.msf.dbbase.entity";
 	
-	@Value("${mapper.package}")
-	private String mapperPackage;
+	private String mapperPackage = "com.msf.dbbase.mapper";
 	
-	@Value("${mapper.mappers}")
-	private static String mapperMappers;
+	@Value("${mybatis.mapper-locations}")
+	private String mapperLocations;
 	
-	@Value("${mapper.identity}")
-	private String mapperIdentity;
+	private String mapperIdentity = "MYSQL";
 
 	@Bean(name = "transactionManager")
     @Primary
@@ -85,19 +80,21 @@ public class ManagerMybatisConfigurer {
 
 
         //配置分页插件，详情请查阅官方文档
-        PageHelper pageHelper = new PageHelper();
+        PageInterceptor interceptor = new PageInterceptor();
         Properties properties = new Properties();
         properties.setProperty("pageSizeZero", "true");//分页尺寸为0时查询所有纪录不再执行分页
         properties.setProperty("reasonable", "true");//页码<=0 查询第一页，页码>=总页数查询最后一页
         properties.setProperty("supportMethodsArguments", "true");//支持通过 Mapper 接口参数来传递分页参数
-        pageHelper.setProperties(properties);
+        interceptor.setProperties(properties);
         
         //添加插件
-        factory.setPlugins(new Interceptor[]{pageHelper,executorQueryInterceptor,executorUpdateInterceptor});
+        factory.setPlugins(new Interceptor[]{interceptor,executorQueryInterceptor,executorUpdateInterceptor});
 
         //添加XML目录
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        factory.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
+		/*
+		 * ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		 * factory.setMapperLocations(resolver.getResources(mapperLocations));
+		 */
         return factory.getObject();
     }
 	
@@ -146,7 +143,7 @@ public class ManagerMybatisConfigurer {
 
         //配置通用Mapper，详情请查阅官方文档
         Properties properties = new Properties();
-        properties.setProperty("mappers", mapperMappers);
+        properties.setProperty("mappers", YsappMapper.class.getName());
         properties.setProperty("notEmpty", "false");//insert、update是否判断字符串类型!='' 即 test="str != null"表达式内是否追加 and str != ''
         properties.setProperty("IDENTITY", mapperIdentity);
         mapperScannerConfigurer.setProperties(properties);

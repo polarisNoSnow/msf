@@ -27,7 +27,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
  * 
  */
 @Configuration
-@PropertySource(value = "classpath:conf/druid.properties")
+@PropertySource(value = "classpath:/conf/druid.properties")
 public class DruidConfig {
 	private static final Logger logger = LoggerFactory.getLogger(DruidConfig.class);
 

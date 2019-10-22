@@ -101,15 +101,23 @@
 
 
 			<!-- 数据库相关 -->
+			<!-- shardingsphere -->
+			<dependency>
+			    <groupId>org.apache.shardingsphere</groupId>
+			    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+			    <version>${sharding-sphere.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.shardingsphere</groupId>
+			    <artifactId>sharding-jdbc-spring-namespace</artifactId>
+			    <version>${sharding-sphere.version}</version>
+			</dependency>
 			<!--阿里 Druid Spring Boot Starter依赖 -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
-				<version>1.1.10</version>
+				<version>1.1.20</version>
 			</dependency>
-			<!-- <dependency> <groupId>tk.mybatis</groupId> <artifactId>mapper</artifactId> 
-				<version>3.4.2</version> </dependency> -->
-			<!-- mybatis -->
 			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>
 				<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -125,12 +133,7 @@
 			<dependency>
 				<groupId>com.github.pagehelper</groupId>
 				<artifactId>pagehelper-spring-boot-starter</artifactId>
-				<version>RELEASE</version>
-			</dependency>
-			<dependency>
-				<groupId>com.github.pagehelper</groupId>
-				<artifactId>pagehelper</artifactId>
-				<version>4.2.1</version>
+				<version>1.2.12</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.persistence</groupId>

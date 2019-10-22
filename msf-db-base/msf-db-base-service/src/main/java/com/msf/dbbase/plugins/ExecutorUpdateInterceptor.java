@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -19,6 +18,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.defaults.DefaultSqlSession.StrictMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.msf.dbbase.encrypt.IEncryptDecryptServer;
@@ -38,11 +38,11 @@ public class ExecutorUpdateInterceptor implements Interceptor {
 
 	private static final String NAME_ENTITY = "et";
 	private static final String NAME_ENTITY_WRAPPER = "ew";
-	
-	
-	@Reference(interfaceClass=IEncryptDecryptServer.class,registry = "decrypt")
-	 IEncryptDecryptServer encryptDecryptServer;
-	
+
+
+	@Autowired
+	IEncryptDecryptServer encryptDecryptServer;
+
 
 	//要进行拦截的时候要执行的方法
 	@Override
