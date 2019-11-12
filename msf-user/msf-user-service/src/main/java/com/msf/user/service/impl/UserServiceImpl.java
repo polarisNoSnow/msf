@@ -1,6 +1,7 @@
 package com.msf.user.service.impl;
 
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.beans.BeanUtils;
 
 import com.msf.user.api.UserService;
 import com.msf.user.model.User;
@@ -20,8 +21,10 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User findUserByName(User name) {
-		name.setAge(25);
-		return name;
+		User userDTO = new User();
+		BeanUtils.copyProperties(name, userDTO);
+		userDTO.setAge(25);
+		return userDTO;
 	}
 
 }

@@ -103,14 +103,14 @@
 			<!-- 数据库相关 -->
 			<!-- shardingsphere -->
 			<dependency>
-			    <groupId>org.apache.shardingsphere</groupId>
-			    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-			    <version>${sharding-sphere.version}</version>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+				<version>${sharding-sphere.version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.apache.shardingsphere</groupId>
-			    <artifactId>sharding-jdbc-spring-namespace</artifactId>
-			    <version>${sharding-sphere.version}</version>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>sharding-jdbc-spring-namespace</artifactId>
+				<version>${sharding-sphere.version}</version>
 			</dependency>
 			<!--阿里 Druid Spring Boot Starter依赖 -->
 			<dependency>
@@ -145,6 +145,18 @@
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-core</artifactId>
 				<version>4.6.10</version>
+			</dependency>
+			<!-- swagger -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.5.0</version>
+			</dependency>
+			<!-- swagger-ui -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.5.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

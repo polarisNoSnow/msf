@@ -12,6 +12,8 @@ import org.apache.dubbo.rpc.Result;
 import org.apache.dubbo.rpc.RpcException;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,9 @@ public class DubboServiceFilter implements Filter
 {
 
 	private static List<String> filterMethod = new ArrayList<String>();
+	/**
+	 * 特定方法无需日志打印
+	 */
 	static {
 		filterMethod.add("loginMobileService");
 		filterMethod.add("setPassword");
@@ -57,11 +62,11 @@ public class DubboServiceFilter implements Filter
 				break;
 			}
 		}
-		//此处需要记录入参，dubbo-2xx会污染参数
-		Object[] reqParam = null;
+		//底层服务可能会污染入参，此处需记录
+		JSONArray reqParam = null;
     	if(isLog) {
-    		reqParam = invocation.getArguments();
-    		log.info(logIn+"method:[{}],request:{}",invocation.getMethodName(), JSON.toJSON(reqParam));
+    		reqParam = (JSONArray) JSON.toJSON(invocation.getArguments());
+    		log.info(logIn+"method:[{}],request:{}",invocation.getMethodName(), reqParam);
     	}
     	
         Result result = null;
@@ -94,7 +99,7 @@ public class DubboServiceFilter implements Filter
         	}else{
         		if(isLog) {
         			log.info(logOut+"method:[{}],request:{},response:{},takeTime:{} ms",
-	                        invocation.getMethodName(),JSON.toJSON(reqParam), JSON.toJSON(result.getValue()),takeTime);
+	                        invocation.getMethodName(),reqParam, JSON.toJSON(result.getValue()),takeTime);
         		}
         	}
         }
