@@ -13,8 +13,20 @@ Msf由前公司项目剥离出来，从入职时 SSH + Hessian 到 Dubbo SrpingB
 ## 安全网关
 
 ## logback日志
+步骤：
+1.导入logback相关jar包
+2.resources下加入logback-spring.xml，可以从application-**.properties读取相关值
 
 ## 代码生成
+
+
+## 接口文档
+之前使用Doclever，自己编写接口文档，不会产生代码侵入，可在线生成对接文档等，适用于前后端分离、多人联合开发、测试上下文测试，提高对接及测试的效率。但是需要搭建Doclever环境，此处为了方便使用Swagger2。
+步骤：
+1.导入swagger2相关的类；
+2.添加配置类Swagger2Config；
+3.在对外接口上添加相关注解，如UserController。
+可参考https://www.jianshu.com/p/c79f6a14f6c9
 
 ## 未来发展
 ### 结合微服务架构及中台思想
