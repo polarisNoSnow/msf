@@ -1,6 +1,7 @@
 package com.msf.dbbase.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -20,6 +21,6 @@ public class User implements Serializable{
 	private String code;
 	@Column(name = "name")
 	private String name;
-	@Column(name = "age")
-	private Integer age;
+	@Column(name = "birthday")
+	private Date birthday;
 }
